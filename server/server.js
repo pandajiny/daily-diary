@@ -9,7 +9,8 @@ const app = express();
 
 const typeDefs = gql`
   type Query {
-    getNotes: Note
+    hello: String!
+    getNotes: [Note]
   }
 
   type Mutation {
@@ -26,14 +27,15 @@ const typeDefs = gql`
 
 const resolvers = {
   Query: {
+    hello: () => "World",
     getNotes: () => {
-      const month = notes[0].month;
-      const date = notes[0].date;
-      return { month, date };
+      console.log(`server, getNotes is Called`);
+      return notes;
     }
   },
   Mutation: {
     addNote: (_, { month, date, text }, __) => {
+      console.log(`server, addNote is called with ${text}`);
       const newNote = [{ month, date, text }];
       let notesData = JSON.stringify(notes.concat(newNote));
       fs.writeFileSync("server/db/data.json", notesData);

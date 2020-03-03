@@ -22,7 +22,7 @@ const Note = props => {
       <h2>
         {month[props.month]} {props.date}
       </h2>
-      <p>Today, I made a project folder</p>
+      <p>{props.children} </p>
     </div>
   );
 };
