@@ -26,7 +26,7 @@ const Edit = () => {
           setInput("");
         }}
       >
-        <label>Month</label>
+        {/* <label>Month</label>
         <select>
           <option>Default</option>
         </select>
@@ -36,9 +36,10 @@ const Edit = () => {
           <option>Default</option>
         </select>
         <label>Context : </label>
-        <br />
+        <br /> */}
         <input value={input} onChange={e => setInput(e.target.value)} />
         <button type="submit">Add note</button>
+        <button>Calender</button>
       </form>
     </div>
   );

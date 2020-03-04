@@ -21,10 +21,10 @@ const Notes = () => {
   if (data) {
     console.log(`data is all ready`);
     console.log(data);
-    return data.getNotes.map(currentNote => {
+    return data.getNotes.map((currentNote, index) => {
       console.log(`hello it's notes from Notes`);
       return (
-        <Note month={currentNote.month} date={currentNote.date}>
+        <Note key={index} month={currentNote.month} date={currentNote.date}>
           {currentNote.text}
         </Note>
       );
