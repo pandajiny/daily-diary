@@ -28,7 +28,6 @@ function App() {
         {/* <Calender></Calender> */}
         <Notes month={2} date={26}></Notes>
         <Edit></Edit>
-        <Calender />
       </div>
     </ApolloProvider>
   );

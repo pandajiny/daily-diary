@@ -19,9 +19,9 @@ const Note = props => {
 
   return (
     <div>
-      <h2>
-        {month[props.month]} {props.date}
-      </h2>
+      <p>
+        {month[props.month]} {props.date}, {props.year}
+      </p>
       <p>{props.children} </p>
     </div>
   );

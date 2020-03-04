@@ -7,6 +7,7 @@ import Note from "./note";
 const GET_NOTES = gql`
   {
     getNotes {
+      year
       month
       date
       text
@@ -24,7 +25,12 @@ const Notes = () => {
     return data.getNotes.map((currentNote, index) => {
       console.log(`hello it's notes from Notes`);
       return (
-        <Note key={index} month={currentNote.month} date={currentNote.date}>
+        <Note
+          key={index}
+          year={currentNote.year}
+          month={currentNote.month}
+          date={currentNote.date}
+        >
           {currentNote.text}
         </Note>
       );

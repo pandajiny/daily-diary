@@ -1,31 +1,15 @@
-import React, { useState } from "react";
+import React, { useState, Fragment } from "react";
 
 import { makeStyles } from "@material-ui/core/styles";
 import Grid from "@material-ui/core/Grid";
 import Button from "@material-ui/core/Button";
 
-const MonthSheet = [
-  "January",
-  "February",
-  "March",
-  "April",
-  "May",
-  "June",
-  "July",
-  "August",
-  "September",
-  "October",
-  "November",
-  "December"
-];
-
-const LastDaySheet = [31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31];
-
-const DaySheet = ["Mon", "Tue", "Wed", "Thu", "Fri", "Sat", "Sun"];
+import MonthSheet from "./data/MonthSheet.json";
+import LastDaySheet from "./data/LastDaySheet.json";
+import DaySheet from "./data/DaySheet.json";
 
 // Getting Date Method
 let DateMethod = new Date();
-// console.log(`hello it's from calender`);
 
 // Material UI Ops
 const useStyles = makeStyles(theme => ({
@@ -39,15 +23,15 @@ const useStyles = makeStyles(theme => ({
   }
 }));
 // console.log(`AfterTrim ${Day_FirstDate}`);
-const Calender = () => {
+const Calender = props => {
   // Meterial UI
   const classes = useStyles();
 
   // Get Today Information
   let today = {
-    year: parseInt(DateMethod.getFullYear()),
+    year: DateMethod.getFullYear(),
     month: DateMethod.getMonth(),
-    date: parseInt(DateMethod.getDate())
+    date: DateMethod.getDate()
   };
   // console.log(`today.month : ${today.month}`);
 
@@ -98,14 +82,12 @@ const Calender = () => {
   };
   // console.log(getFisrtDay(today.year, today.month));
 
+  const WeekNumber = [0, 1, 2, 3, 4, 5, 6];
+
   return (
     <div className={classes.root}>
       <Grid container spacing={0}>
         {/* Calender Widget Component Below */}
-        <Grid item xs={7}>
-          <h1>Calender Widget</h1>
-        </Grid>
-        <Grid item xs={5}></Grid>
         {/* Current Month Index and Year */}
         <Grid item xs={5}>
           <p>
@@ -119,7 +101,6 @@ const Calender = () => {
           <Button onClick={HandleClickNextButton}>Next</Button>
         </Grid>
         <Grid item xs={5}></Grid>
-
         {/* Display Day List */}
         {DaySheet.map((day, index) => (
           <Grid item xs={1} key={day}>
@@ -133,18 +114,74 @@ const Calender = () => {
           </Grid>
         ))}
         <Grid item xs={5}></Grid>
+        {WeekNumber.map((Week, WeekIndex) => {
+          return (
+            <Fragment>
+              {DaySheet.map((date, index) => {
+                const DateIndex = currentDate;
+                return (
+                  <Grid
+                    item
+                    xs={1}
+                    key={index}
+                    onClick={() => console.log(`box clicked, ${index}`)}
+                  >
+                    <Button
+                      onClick={() =>
+                        props.HandleSelect(YearIndex, MonthIndex, DateIndex + 1)
+                      }
+                    >
+                      {DaySheet[index] === getFisrtDay(YearIndex, MonthIndex)
+                        ? countDate()
+                        : currentDate !== 0
+                        ? countDate()
+                        : ""}
+                    </Button>
+                  </Grid>
+                );
+              })}
+              <Grid item xs={5}></Grid>
+            </Fragment>
+          );
+        })}
+        {/* <Grid item xs={5}></Grid>) })}
         {/* First Week */}
-        {DaySheet.map((date, index) => {
+        {/* {DaySheet.map((date, index) => {
+          const ClickDateIndex = currentDate;
           // console.log(`FIrst Day${getFisrtDay(2020, MonthIndex)}`);
           // console.log(`Month Index : ${MonthIndex}`);
           return (
-            <Grid item xs={1} key={index}>
-              <Button>
+            <Grid
+              item
+              xs={1}
+              key={index}
+              onClick={() => console.log(`box clicked, ${index}`)}
+            >
+              <Button
+                onClick={() =>
+                  props.HandleSelect(YearIndex, MonthIndex, ClickDateIndex + 1)
+                }
+              >
                 {DaySheet[index] === getFisrtDay(2020, MonthIndex)
                   ? countDate()
                   : currentDate !== 0
                   ? countDate()
                   : ""}
+              </Button>
+            </Grid>
+          );
+        })}
+        <Grid item xs={5}></Grid>
+        {DaySheet.map((date, index) => {
+          const ClickDateIndex = currentDate;
+          return (
+            <Grid item xs={1} key={currentDate}>
+              <Button
+                onClick={() =>
+                  props.HandleSelect(YearIndex, MonthIndex, ClickDateIndex + 1)
+                }
+              >
+                {countDate()}
               </Button>
             </Grid>
           );
@@ -172,13 +209,9 @@ const Calender = () => {
           <Grid item xs={1} key={index}>
             <Button>{countDate()}</Button>
           </Grid>
-        ))}
-        <Grid item xs={5}></Grid>
-        {DaySheet.map((date, index) => (
-          <Grid item xs={1} key={index}>
-            <Button>{countDate()}</Button>
-          </Grid>
-        ))}
+        ))}{" "}
+        */}{" "}
+        */}
       </Grid>
     </div>
   );
