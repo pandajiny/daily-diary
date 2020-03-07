@@ -143,75 +143,8 @@ const Calender = props => {
               <Grid item xs={5}></Grid>
             </Fragment>
           );
-        })}
-        {/* <Grid item xs={5}></Grid>) })}
-        {/* First Week */}
-        {/* {DaySheet.map((date, index) => {
-          const ClickDateIndex = currentDate;
-          // console.log(`FIrst Day${getFisrtDay(2020, MonthIndex)}`);
-          // console.log(`Month Index : ${MonthIndex}`);
-          return (
-            <Grid
-              item
-              xs={1}
-              key={index}
-              onClick={() => console.log(`box clicked, ${index}`)}
-            >
-              <Button
-                onClick={() =>
-                  props.HandleSelect(YearIndex, MonthIndex, ClickDateIndex + 1)
-                }
-              >
-                {DaySheet[index] === getFisrtDay(2020, MonthIndex)
-                  ? countDate()
-                  : currentDate !== 0
-                  ? countDate()
-                  : ""}
-              </Button>
-            </Grid>
-          );
-        })}
-        <Grid item xs={5}></Grid>
-        {DaySheet.map((date, index) => {
-          const ClickDateIndex = currentDate;
-          return (
-            <Grid item xs={1} key={currentDate}>
-              <Button
-                onClick={() =>
-                  props.HandleSelect(YearIndex, MonthIndex, ClickDateIndex + 1)
-                }
-              >
-                {countDate()}
-              </Button>
-            </Grid>
-          );
-        })}
-        <Grid item xs={5}></Grid>
-        {DaySheet.map((date, index) => (
-          <Grid item xs={1} key={index}>
-            <Button>{countDate()}</Button>
-          </Grid>
-        ))}
-        <Grid item xs={5}></Grid>
-        {DaySheet.map((date, index) => (
-          <Grid item xs={1} key={index}>
-            <Button>{countDate()}</Button>
-          </Grid>
-        ))}
-        <Grid item xs={5}></Grid>
-        {DaySheet.map((date, index) => (
-          <Grid item xs={1} key={index}>
-            <Button>{countDate()}</Button>
-          </Grid>
-        ))}
-        <Grid item xs={5}></Grid>
-        {DaySheet.map((date, index) => (
-          <Grid item xs={1} key={index}>
-            <Button>{countDate()}</Button>
-          </Grid>
-        ))}{" "}
-        */}{" "}
-        */}
+        })}{" "}
+        }
       </Grid>
     </div>
   );

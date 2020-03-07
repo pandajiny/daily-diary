@@ -2,6 +2,7 @@ import express from "express";
 import { ApolloServer, gql } from "apollo-server-express";
 import fs from "fs";
 import notes from "./db/data.json";
+import login from "./db/login.json";
 
 const PORT = 4000;
 
@@ -16,6 +17,8 @@ const typeDefs = gql`
   type Mutation {
     addNote(year: Int, month: Int, date: Int, text: String): Note
     hello(email: String): String
+    signup(email: String, password: String, name: String): signupResult
+    login(email: String, password: String): loginResult
   }
 
   type Note {
@@ -23,6 +26,14 @@ const typeDefs = gql`
     month: Int
     date: Int
     text: String
+  }
+
+  type signupResult {
+    passed: Boolean
+  }
+
+  type loginResult {
+    passed: Boolean
   }
 `;
 
@@ -42,6 +53,19 @@ const resolvers = {
       fs.writeFileSync("server/db/data.json", notesData);
       console.log("done!");
       return { year, month, date, text };
+    },
+    signup: (_, { email, password, name }) => {
+      console.log(`signup!${email + password}`);
+      const token = email.concat(" ", password, " ", name);
+      const UserInformation = JSON.stringify({ email, password, name });
+      fs.writeFileSync("server/db/login.json", UserInformation);
+      return { passed: true };
+    },
+    login: (_, { email, password }) => {
+      console.log(`login! ${email}, ${password}`);
+      if (email === login.email && password === login.password)
+        return { passed: true };
+      else return { passed: false };
     }
   }
 };
