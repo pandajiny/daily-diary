@@ -11,9 +11,9 @@ const useStyles = makeStyles(theme => ({
     }
   },
   Box: {
-    background: "#CAA7D9",
+    // background: "#CAA7D9",
     borderRadius: 5,
-    color: "white",
+    color: "#422A59",
     marginLeft: 5
   }
 }));

@@ -21,9 +21,9 @@ const useStyles = makeStyles(theme => ({
     marginLeft: 7
   },
   NavBar: {
-    background: "#895DA6",
+    // background: "#895DA6",
     padding: 10,
-    color: "white",
+    color: "#895DA6",
     borderRadius: 4,
     width: "50%",
     marginTop: 10,

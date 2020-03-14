@@ -10,21 +10,9 @@ import { InMemoryCache } from "apollo-cache-inmemory";
 const link = createHttpLink({ uri: "http://localhost:4000/graphql" });
 
 const client = new ApolloClient({
-  // link: new createHttpLink({ uri: "http://localhost:4000/graphql" }),
   cache: new InMemoryCache(),
   link
 });
-
-// // Checking the Connect with Apollo Server
-// client
-//   .query({
-//     query: gql`
-//       {
-//         hello
-//       }
-//     `
-//   })
-//   .then(result => console.log(result));
 
 ReactDOM.render(
   <BrowserRouter>
