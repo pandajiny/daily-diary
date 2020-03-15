@@ -5,7 +5,14 @@ import { useMutation } from "@apollo/react-hooks";
 import Calender from "./calender";
 
 import MonthSheet from "./data/MonthSheet.json";
-import { Container } from "@material-ui/core";
+import {
+  Container,
+  TextField,
+  Typography,
+  Box,
+  Avatar,
+  Button
+} from "@material-ui/core";
 
 const ADD_NOTE = gql`
   mutation AddNote($year: Int, $month: Int, $date: Int, $text: String) {
@@ -48,41 +55,56 @@ const Edit = () => {
     setDateIndex(DateIndex => date);
   };
 
-  const [addTodo, { data }] = useMutation(ADD_NOTE);
+  const [addTodo] = useMutation(ADD_NOTE, {
+    onCompleted: data => {
+      window.location.reload(false);
+    }
+  });
   return (
     <div>
       <form
         onSubmit={e => {
           e.preventDefault();
-          addTodo({
-            variables: {
-              year: YearIndex,
-              month: MonthIndex + 1,
-              date: DateIndex,
-              text: input.toString()
-            }
-          });
-          setInput("");
         }}
       >
-        {/* <label>Month</label>
-        <select>
-          <option>Default</option>
-        </select>
-        <br />
-        <label>Date</label>
-        <select>
-          <option>Default</option>
-        </select>
-        <label>Context : </label>
-        <br /> */}
-        <label>{MonthSheet[MonthIndex]}</label>
-        <label>{DateIndex} </label>
-        <label>, {YearIndex}</label>
-        <br />
-        <input value={input} onChange={e => setInput(e.target.value)} />
-        <button type="submit">Add note</button>
-        <button onClick={() => CalenderToggle()}>Calender</button>
+        <Box
+          display="flex"
+          justifyContent="flex-end"
+          marginRight={1}
+          onClick={() => CalenderToggle()}
+        >
+          <Typography color="primary-dark" variant="body2">
+            {MonthSheet[MonthIndex] + " " + DateIndex + ", " + YearIndex}
+          </Typography>
+        </Box>
+        <Box display="flex" flexDirection="row">
+          <TextField
+            id="text"
+            placeholder="Add Note here.."
+            multiline
+            required
+            fullWidth
+            label="Add Note here.."
+            onChange={e => setInput(e.target.value)}
+          />
+          <Button
+            variant="contained"
+            color="primary"
+            onClick={() => {
+              addTodo({
+                variables: {
+                  year: YearIndex,
+                  month: MonthIndex + 1,
+                  date: DateIndex,
+                  text: input.toString()
+                }
+              });
+              console.log("clicked");
+            }}
+          >
+            +
+          </Button>
+        </Box>
         {CalenderDisplay && (
           <div>
             <Calender HandleSelect={HandleCalenderSelect} />

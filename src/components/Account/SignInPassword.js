@@ -69,11 +69,16 @@ const SignInEmail = props => {
             marginTop={2}
           >
             <Avatar className={classes.small} backgroundColor="#696969">
-              Y
+              {props.currentEmail.toString().slice(0, 1)}
             </Avatar>
-            <Typography variant="body1">{"youremail@gmail.com"} </Typography>
+            <Typography variant="body1">{props.currentEmail} </Typography>
           </Box>
-          <form className={classes.form}>
+          <form
+            className={classes.form}
+            onSubmit={e => {
+              e.preventDefault();
+            }}
+          >
             <TextField
               variant="outlined"
               margin="normal"
@@ -83,6 +88,11 @@ const SignInEmail = props => {
               label="PassWord"
               type="password"
               onChange={e => props.handlePasswordChange(e.target.value)}
+              onKeyDown={e => {
+                if (e.key.toString() === "Enter") {
+                  props.tryLogin();
+                }
+              }}
               autoFocus
             />
 

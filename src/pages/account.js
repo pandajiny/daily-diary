@@ -3,10 +3,10 @@ import gql from "graphql-tag";
 import { useMutation } from "react-apollo";
 // import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
 
-import SignInEmail from "./SignInEmail";
-import SignUp from "./SignUp";
-import SignInPassword from "./SignInPassword";
-import LoginResult from "./LoginResult";
+import SignInEmail from "../components/Account/SignInEmail";
+import SignUp from "../components/Account/SignUp";
+import SignInPassword from "../components/Account/SignInPassword";
+import LoginResult from "../components/Account/LoginResult";
 
 const LOGIN_MUTATION = gql`
   mutation login($email: String, $password: String) {
@@ -22,10 +22,13 @@ const Account = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
 
+  const [loginPassed, setLoginPassed] = useState(false);
+
   const [loginMutation] = useMutation(LOGIN_MUTATION, {
     onCompleted: data => {
-      // console.log(`login!`);
-      console.log(`result : ${data.login.passed}`);
+      // console.log(`result : ${data.login.passed}`);
+      setLoginPassed(data.login.passed);
+      handlePageChange("loginresult");
     }
   });
 
@@ -37,7 +40,7 @@ const Account = () => {
   };
 
   const tryLogin = () => {
-    console.log(`tryLogin!`);
+    // console.log(`tryLogin!`);
     loginMutation({ variables: { email, password } });
     handlePageChange("loginresult");
   };
@@ -55,7 +58,7 @@ const Account = () => {
     if (nextState.toString() === "loginresult") {
       setPage("loginresult");
     }
-    console.log(`current Page : ${currentPage}`);
+    // console.log(`current Page : ${currentPage}`);
   };
 
   return (
@@ -71,6 +74,7 @@ const Account = () => {
       {currentPage === "signinpass" && (
         <div>
           <SignInPassword
+            currentEmail={email}
             handlePasswordChange={handlePasswordChange}
             tryLogin={tryLogin}
             handlePageChange={handlePageChange}
@@ -82,6 +86,7 @@ const Account = () => {
           <LoginResult
             email={email}
             password={password}
+            passed={loginPassed}
             handlePageChange={handlePageChange}
           />
         </div>

@@ -1,32 +1,21 @@
 import React from "react";
 import { makeStyles } from "@material-ui/core/styles";
-import Box from "@material-ui/core/box";
-import Typography from "@material-ui/core/Typography";
+import { Box, Typography } from "@material-ui/core";
 import MonthSheet from "./data/MonthSheet.json";
 
-const useStyles = makeStyles(theme => ({
-  root: {
-    "& > * + *": {
-      marginLeft: theme.spacing(2)
-    }
-  },
-  Box: {
-    // background: "#CAA7D9",
-    borderRadius: 5,
-    color: "#422A59",
-    marginLeft: 5
-  }
-}));
+const useStyles = makeStyles(theme => ({}));
 
 const Note = props => {
   const classes = useStyles();
   return (
-    <div className={classes.root}>
-      <Box className={classes.Box} component="div">
-        <Typography variant="subtitle2">
-          {MonthSheet[props.month]} {props.date}, {props.year}
-        </Typography>
-        <p>{props.children} </p>
+    <div>
+      <Box paddingBottom={0.5}>
+        <Box color="#696969" marginLeft={0.5}>
+          <Typography variant="caption">
+            {MonthSheet[props.month]} {props.date}, {props.year}
+          </Typography>
+        </Box>
+        <Typography variant="body1">{props.children}</Typography>
       </Box>
     </div>
   );

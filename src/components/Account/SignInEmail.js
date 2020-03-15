@@ -55,7 +55,12 @@ const SignInEmail = props => {
           <Typography variant="body1" color="primary">
             Sign in with Your Email !!
           </Typography>
-          <form className={classes.form}>
+          <form
+            className={classes.form}
+            onSubmit={e => {
+              e.preventDefault();
+            }}
+          >
             <TextField
               variant="outlined"
               margin="normal"
@@ -64,6 +69,12 @@ const SignInEmail = props => {
               id="email"
               label="Email Address"
               onChange={e => props.handleEmailChange(e.target.value)}
+              onKeyDown={e => {
+                if (e.key.toString() === "Enter") {
+                  console.log(`enter key pressed`);
+                  props.handlePageChange("signinpass");
+                }
+              }}
               autoFocus
             />
             <Box display="flex" flexDirection="row" justifyContent="flex-end">
