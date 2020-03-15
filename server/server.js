@@ -1,12 +1,25 @@
 import express from "express";
 import { ApolloServer, gql } from "apollo-server-express";
+import { MongoClient } from "mongodb";
 import fs from "fs";
 import notes from "./db/data.json";
 import login from "./db/login.json";
+import { url } from "inspector";
 
 const PORT = 4000;
 
 const app = express();
+
+const dburl = "mongodb://localhost:27017";
+const dbclient = new MongoClient(dburl, {
+  useNewUrlParser: true,
+  useUnifiedTopology: true
+});
+
+dbclient.connect(err => {
+  console.log(`MONGOdb connected with ${url}`);
+  const db = dbclient.db("users");
+});
 
 const typeDefs = gql`
   type Query {
