@@ -1,19 +1,19 @@
 {
   "files": {
-    "main.js": "/daily-diary/static/js/main.0c7dddeb.chunk.js",
-    "main.js.map": "/daily-diary/static/js/main.0c7dddeb.chunk.js.map",
+    "main.js": "/daily-diary/static/js/main.452b7a30.chunk.js",
+    "main.js.map": "/daily-diary/static/js/main.452b7a30.chunk.js.map",
     "runtime-main.js": "/daily-diary/static/js/runtime-main.d94dc6b7.js",
     "runtime-main.js.map": "/daily-diary/static/js/runtime-main.d94dc6b7.js.map",
     "static/js/2.ac0e1e59.chunk.js": "/daily-diary/static/js/2.ac0e1e59.chunk.js",
     "static/js/2.ac0e1e59.chunk.js.map": "/daily-diary/static/js/2.ac0e1e59.chunk.js.map",
     "index.html": "/daily-diary/index.html",
-    "precache-manifest.55aa3d017de512a85e00bd3f54b6cd5c.js": "/daily-diary/precache-manifest.55aa3d017de512a85e00bd3f54b6cd5c.js",
+    "precache-manifest.80eb92a5cae55a1699a10c84e9d7a5fe.js": "/daily-diary/precache-manifest.80eb92a5cae55a1699a10c84e9d7a5fe.js",
     "service-worker.js": "/daily-diary/service-worker.js",
     "static/js/2.ac0e1e59.chunk.js.LICENSE.txt": "/daily-diary/static/js/2.ac0e1e59.chunk.js.LICENSE.txt"
   },
   "entrypoints": [
     "static/js/runtime-main.d94dc6b7.js",
     "static/js/2.ac0e1e59.chunk.js",
-    "static/js/main.0c7dddeb.chunk.js"
+    "static/js/main.452b7a30.chunk.js"
   ]
 }

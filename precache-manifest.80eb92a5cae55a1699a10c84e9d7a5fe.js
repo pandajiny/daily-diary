@@ -1,6 +1,6 @@
 self.__precacheManifest = (self.__precacheManifest || []).concat([
   {
-    "revision": "cd8671e06868b206e93d7a6ad62ae9d3",
+    "revision": "da58491accd93c63b4de5c4f75dd7784",
     "url": "/daily-diary/index.html"
   },
   {
@@ -12,8 +12,8 @@ self.__precacheManifest = (self.__precacheManifest || []).concat([
     "url": "/daily-diary/static/js/2.ac0e1e59.chunk.js.LICENSE.txt"
   },
   {
-    "revision": "bf2566817a8816973297",
-    "url": "/daily-diary/static/js/main.0c7dddeb.chunk.js"
+    "revision": "c5a7743075a0f0e8d961",
+    "url": "/daily-diary/static/js/main.452b7a30.chunk.js"
   },
   {
     "revision": "0bc618416b8e7f1de9cc",
