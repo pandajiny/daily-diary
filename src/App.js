@@ -1,11 +1,6 @@
 import React from "react";
-import {
-  BrowserRouter as Router,
-  Redirect,
-  Switch,
-  Route
-} from "react-router-dom";
-import "typeface-roboto";
+import { BrowserRouter, Redirect, Switch, Route } from "react-router-dom";
+// import "typeface-roboto";
 
 import { makeStyles } from "@material-ui/core/styles";
 import {
@@ -28,7 +23,8 @@ function App() {
   const classes = useStyles();
 
   return (
-    <Router>
+    <BrowserRouter basename={process.env.PUBLIC_URL}>
+      <p>public URL v4.{process.env.PUBLIC_URL}</p>
       <Container maxWidth="lg">
         <CssBaseline />
         <div className={classes.root}>
@@ -52,10 +48,10 @@ function App() {
                   </Typography>
                 </Box>
                 <hr />
-                <Link href="/notes" variant="h5">
+                <Link href={process.env.PUBLIC_URL + "/notes"} variant="h5">
                   Notes
                 </Link>
-                <Link href="/account" variant="h5">
+                <Link href={process.env.PUBLIC_URL + "/account"} variant="h5">
                   Account
                 </Link>
               </Box>
@@ -63,8 +59,11 @@ function App() {
             <Grid item xs={7}>
               <Box marginLeft={4} marginTop={2}>
                 <Switch>
-                  <Route path="/account" render={() => <Account />} />
-                  <Route path="/notes" render={() => <Notes />} />
+                  <Route
+                    path={process.env.PUBLIC_URL + "/account"}
+                    render={() => <Account />}
+                  />
+                  <Route path={"/notes"} render={() => <Notes />} />
                   <Route
                     exact
                     path="/"
@@ -77,7 +76,7 @@ function App() {
           </Grid>
         </div>
       </Container>
-    </Router>
+    </BrowserRouter>
   );
 }
 
