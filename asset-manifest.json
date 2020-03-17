@@ -1,23 +1,19 @@
 {
   "files": {
-    "main.js": "/daily-diary/static/js/main.e1dabf59.chunk.js",
-    "main.js.map": "/daily-diary/static/js/main.e1dabf59.chunk.js.map",
+    "main.js": "/daily-diary/static/js/main.163f50f3.chunk.js",
+    "main.js.map": "/daily-diary/static/js/main.163f50f3.chunk.js.map",
     "runtime-main.js": "/daily-diary/static/js/runtime-main.d94dc6b7.js",
     "runtime-main.js.map": "/daily-diary/static/js/runtime-main.d94dc6b7.js.map",
-    "static/css/2.58f4991d.chunk.css": "/daily-diary/static/css/2.58f4991d.chunk.css",
-    "static/js/2.9585c0a2.chunk.js": "/daily-diary/static/js/2.9585c0a2.chunk.js",
-    "static/js/2.9585c0a2.chunk.js.map": "/daily-diary/static/js/2.9585c0a2.chunk.js.map",
+    "static/js/2.ac0e1e59.chunk.js": "/daily-diary/static/js/2.ac0e1e59.chunk.js",
+    "static/js/2.ac0e1e59.chunk.js.map": "/daily-diary/static/js/2.ac0e1e59.chunk.js.map",
     "index.html": "/daily-diary/index.html",
-    "precache-manifest.dee8e8c3129bff38d2237de4c49fd6fe.js": "/daily-diary/precache-manifest.dee8e8c3129bff38d2237de4c49fd6fe.js",
+    "precache-manifest.913f3069db134deae08df2e53d1c1699.js": "/daily-diary/precache-manifest.913f3069db134deae08df2e53d1c1699.js",
     "service-worker.js": "/daily-diary/service-worker.js",
-    "static/css/2.58f4991d.chunk.css.map": "/daily-diary/static/css/2.58f4991d.chunk.css.map",
-    "static/js/2.9585c0a2.chunk.js.LICENSE.txt": "/daily-diary/static/js/2.9585c0a2.chunk.js.LICENSE.txt",
-    "static/media/index.css": "/daily-diary/static/media/roboto-latin-900italic.ebf6d164.woff2"
+    "static/js/2.ac0e1e59.chunk.js.LICENSE.txt": "/daily-diary/static/js/2.ac0e1e59.chunk.js.LICENSE.txt"
   },
   "entrypoints": [
     "static/js/runtime-main.d94dc6b7.js",
-    "static/css/2.58f4991d.chunk.css",
-    "static/js/2.9585c0a2.chunk.js",
-    "static/js/main.e1dabf59.chunk.js"
+    "static/js/2.ac0e1e59.chunk.js",
+    "static/js/main.163f50f3.chunk.js"
   ]
 }
