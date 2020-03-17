@@ -2,9 +2,9 @@ import React, { useState } from "react";
 import gql from "graphql-tag";
 import { useMutation } from "@apollo/react-hooks";
 
-import Calender from "./calender";
+import Calender from "../calender";
 
-import MonthSheet from "./data/MonthSheet.json";
+import MonthSheet from "../data/MonthSheet.json";
 import {
   Container,
   TextField,
@@ -27,7 +27,7 @@ const ADD_NOTE = gql`
 
 let DateMethod = new Date();
 
-const Edit = () => {
+const Edit = props => {
   // Get Today Information
   let today = {
     year: DateMethod.getFullYear(),
@@ -91,14 +91,21 @@ const Edit = () => {
             variant="contained"
             color="primary"
             onClick={() => {
-              addTodo({
-                variables: {
-                  year: YearIndex,
-                  month: MonthIndex + 1,
-                  date: DateIndex,
-                  text: input.toString()
-                }
-              });
+              // addTodo({
+              //   variables: {
+              //     year: YearIndex,
+              //     month: MonthIndex + 1,
+              //     date: DateIndex,
+              //     text: input.toString()
+              //   }
+              // });
+              props.handleAddNote(
+                YearIndex,
+                MonthIndex + 1,
+                DateIndex,
+                input.toString()
+              );
+              setInput("");
               console.log("clicked");
             }}
           >
