@@ -43,7 +43,6 @@ const Edit = props => {
   };
 
   const handleSubmit = e => {
-    e.preventDefault();
     props.handleAddNote(YearIndex, MonthIndex + 1, DateIndex, input.toString());
     setInput("");
     console.log("clicked");
@@ -52,7 +51,13 @@ const Edit = props => {
 
   return (
     <div>
-      <form id="edit-form" onSubmit={e => handleSubmit(e)}>
+      <form
+        id="edit-form"
+        onSubmit={e => {
+          e.preventDefault();
+          handleSubmit(e);
+        }}
+      >
         <Box
           display="flex"
           justifyContent="flex-end"
@@ -72,13 +77,14 @@ const Edit = props => {
             required
             fullWidth
             label="Add Note here.."
-            onChange={e => {
-              setInput(e.target.value);
-            }}
+            defaultValue=""
             onKeyPress={e => {
               if (e.key === "Enter") {
                 handleSubmit();
               }
+            }}
+            onChange={e => {
+              setInput(e.target.value);
             }}
           />
           <Button variant="contained" color="primary" type="submit">

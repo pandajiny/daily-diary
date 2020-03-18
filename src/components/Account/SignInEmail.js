@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import { makeStyles } from "@material-ui/core/styles";
 import {
   Container,
@@ -38,6 +38,21 @@ const uesStyles = makeStyles(theme => ({
 
 const SignInEmail = props => {
   const classes = uesStyles();
+  const [tryAgain, setTryAgain] = useState(false);
+
+  const doTryAgain = () => {
+    document.getElementById("email-form").reset();
+    setTryAgain(true);
+  };
+
+  const handleSubmit = () => {
+    console.log(`validator triggered ${props.emailValidator()}`);
+    if (props.emailValidator()) {
+      props.handlePageChange("signinpass");
+    } else {
+      doTryAgain();
+    }
+  };
 
   return (
     <div className="SignIn Root">
@@ -53,12 +68,16 @@ const SignInEmail = props => {
             </Typography>
           </Box>
           <Typography variant="body1" color="primary">
-            Sign in with Your Email !!
+            {tryAgain
+              ? "Wrong type of email address"
+              : "Sign in with Your Email !!"}
           </Typography>
           <form
             className={classes.form}
+            id="email-form"
             onSubmit={e => {
               e.preventDefault();
+              handleSubmit();
             }}
           >
             <TextField
@@ -68,13 +87,13 @@ const SignInEmail = props => {
               fullWidth
               id="email"
               label="Email Address"
-              onChange={e => props.handleEmailChange(e.target.value)}
               onKeyDown={e => {
                 if (e.key.toString() === "Enter") {
-                  console.log(`enter key pressed`);
-                  props.handlePageChange("signinpass");
+                  // console.log(`enter key pressed`);
+                  handleSubmit();
                 }
               }}
+              onChange={e => props.handleEmailChange(e.target.value)}
               autoFocus
             />
             <Box display="flex" flexDirection="row" justifyContent="flex-end">
@@ -88,7 +107,7 @@ const SignInEmail = props => {
                 {"You don't have an Account?"}
               </Typography>
               <Link
-                onClick={() => props.handlePageChange("signup")}
+                onClick={() => handleSubmit()}
                 color="primary"
                 variant="body1"
               >
@@ -102,7 +121,7 @@ const SignInEmail = props => {
               alignItems="center"
             >
               <Button
-                onClick={() => props.handlePageChange("signinpass")}
+                onClick={() => handleSubmit()}
                 variant="contained"
                 color="primary"
               >

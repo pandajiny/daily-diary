@@ -54,10 +54,12 @@ const SignInEmail = props => {
         <CssBaseline />
         <div className={classes.paper}>
           <Typography variant="h4" color="primary">
-            {"Welcome"}
+            {props.tryAgain ? "Sorry :( " : "Welcome"}
           </Typography>
           <Typography variant="body1" color="primary">
-            Enter your Password !!
+            {props.tryAgain
+              ? "Login Failed, please Try Again"
+              : "Enter your Password !!"}
           </Typography>
           <Box
             className={classes.block}
@@ -68,7 +70,7 @@ const SignInEmail = props => {
             paddingRight={1}
             marginTop={2}
           >
-            <Avatar className={classes.small} backgroundColor="#696969">
+            <Avatar className={classes.small}>
               {props.currentEmail.toString().slice(0, 1)}
             </Avatar>
             <Typography variant="body1">{props.currentEmail} </Typography>
@@ -87,22 +89,34 @@ const SignInEmail = props => {
               id="password"
               label="PassWord"
               type="password"
-              onChange={e => props.handlePasswordChange(e.target.value)}
               onKeyDown={e => {
                 if (e.key.toString() === "Enter") {
                   props.tryLogin();
                 }
               }}
+              onChange={e => props.handlePasswordChange(e.target.value)}
               autoFocus
             />
 
-            <Box marginTop={4} color="#696969">
+            <Box
+              display="flex"
+              flexDirection="column"
+              marginTop={4}
+              color="#696969"
+            >
               <Link
                 onClick={() => props.handlePageChange("signup")}
                 color="primary"
                 variant="body1"
               >
                 {"Forgot Password?"}
+              </Link>
+              <Link
+                onClick={() => props.handlePageChange("signinemail")}
+                color="primary"
+                variant="body1"
+              >
+                {"Wrong Email?"}
               </Link>
             </Box>
             <Box

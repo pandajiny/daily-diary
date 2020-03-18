@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import {
   HashRouter as Router,
   Redirect,
@@ -17,7 +17,7 @@ import {
   CssBaseline
 } from "@material-ui/core";
 
-import Account from "./pages/Account";
+import Account from "./components/Account/Account";
 import Notes from "./components/Notes/Notes";
 
 const useStyles = makeStyles(theme => ({
@@ -26,6 +26,16 @@ const useStyles = makeStyles(theme => ({
 function App() {
   // let history = useHistory();
   const classes = useStyles();
+  const [loginState, setLoginState] = useState(true);
+
+  const handleLogin = () => {
+    console.log(loginState);
+    setLoginState(true);
+  };
+
+  const handleLogout = () => {
+    setLoginState(false);
+  };
 
   return (
     <Router basename={process.env.PUBLIC_URL + "/"}>
@@ -63,8 +73,22 @@ function App() {
             <Grid item xs={7}>
               <Box marginLeft={4} marginTop={2}>
                 <Switch>
-                  <Route path="/account" render={() => <Account />} />
-                  <Route path="/notes" render={() => <Notes />} />
+                  <Route
+                    path="/account"
+                    render={() => (
+                      <Account
+                        loginState={loginState}
+                        handleLogin={handleLogin}
+                        handleLogout={handleLogout}
+                      />
+                    )}
+                  />
+                  <Route
+                    path="/notes"
+                    render={() =>
+                      loginState ? <Notes /> : <Redirect to={"/account"} />
+                    }
+                  />
                   <Route
                     exact
                     path="/"

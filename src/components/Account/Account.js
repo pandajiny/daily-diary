@@ -1,12 +1,13 @@
 import React, { useState } from "react";
+
+import * as EmailValidator from "email-validator";
 import gql from "graphql-tag";
 import { useMutation } from "react-apollo";
-// import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
 
 import SignInEmail from "./SignInEmail";
 import SignUp from "./SignUp";
 import SignInPassword from "./SignInPassword";
-import LoginPassed from "./LoginResult";
+import LoginPassed from "./LoginPassed";
 
 const LOGIN_MUTATION = gql`
   mutation login($email: String, $password: String) {
@@ -22,13 +23,16 @@ const Account = props => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
 
-  const [loginPassed, setLoginPassed] = useState(false);
-
   const [loginMutation] = useMutation(LOGIN_MUTATION, {
     onCompleted: data => {
-      // console.log(`result : ${data.login.passed}`);
-      setLoginPassed(data.login.passed);
-      handlePageChange("loginresult");
+      console.log(`result : ${data.login.passed}`);
+      if (data.login.passed) {
+        console.log(`passed`);
+        props.handleLogin();
+        handlePageChange("loginpassed");
+      } else {
+        handlePageChange("loginfailed");
+      }
     }
   });
 
@@ -40,14 +44,17 @@ const Account = props => {
   };
 
   const tryLogin = () => {
-    // console.log(`tryLogin!`);
+    console.log(`tryLogin!`);
     loginMutation({ variables: { email, password } });
-    handlePageChange("loginresult");
+  };
+
+  const emailValidator = () => {
+    return EmailValidator.validate(email);
   };
 
   const handlePageChange = nextState => {
     if (nextState.toString() === "signinemail") {
-      setPage("signin");
+      setPage("signinemail");
     }
     if (nextState.toString() === "signinpass") {
       setPage("signinpass");
@@ -55,26 +62,23 @@ const Account = props => {
     if (nextState.toString() === "signup") {
       setPage("signup");
     }
-    if (nextState.toString() === "loginresult") {
-      setPage("loginresult");
+    if (nextState.toString() === "loginpassed") {
+      setPage("loginpassed");
+    }
+    if (nextState.toString() === "loginfailed") {
+      setPage("loginfailed");
     }
     // console.log(`current Page : ${currentPage}`);
   };
 
-  if (props.loginState) {
-    console.log();
-    handlePageChange("loginpassed");
-  } else {
-    handlePageChange("signinemail");
-  }
-
   return (
     <div>
-      {currentPage === "signinemail" && (
+      {currentPage === "signinemail" && !props.loginState && (
         <div>
           <SignInEmail
             handleEmailChange={handleEmailChange}
             handlePageChange={handlePageChange}
+            emailValidator={emailValidator}
           />
         </div>
       )}
@@ -88,13 +92,23 @@ const Account = props => {
           />
         </div>
       )}
-      {currentPage === "loginpassed" && (
+      {(currentPage === "loginpassed" || props.loginState) && (
         <div>
           <LoginPassed
             email={email}
-            password={password}
             handleLogout={props.handleLogout}
             handlePageChange={handlePageChange}
+          />
+        </div>
+      )}
+      {currentPage === "loginfailed" && (
+        <div>
+          <SignInPassword
+            currentEmail={email}
+            handlePasswordChange={handlePasswordChange}
+            tryLogin={tryLogin}
+            handlePageChange={handlePageChange}
+            tryAgain={true}
           />
         </div>
       )}
