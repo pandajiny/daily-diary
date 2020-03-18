@@ -1,29 +1,16 @@
-import React, { useState } from "react";
-import gql from "graphql-tag";
-import { useMutation } from "@apollo/react-hooks";
+import React, { useState, useRef, useEffect } from "react";
 
 import Calender from "../calender";
 
 import MonthSheet from "../data/MonthSheet.json";
 import {
-  Container,
+  // Container,
   TextField,
   Typography,
   Box,
-  Avatar,
+  // Avatar,
   Button
 } from "@material-ui/core";
-
-const ADD_NOTE = gql`
-  mutation AddNote($year: Int, $month: Int, $date: Int, $text: String) {
-    addNote(year: $year, month: $month, date: $date, text: $text) {
-      year
-      month
-      date
-      text
-    }
-  }
-`;
 
 let DateMethod = new Date();
 
@@ -55,25 +42,25 @@ const Edit = props => {
     setDateIndex(DateIndex => date);
   };
 
-  const [addTodo] = useMutation(ADD_NOTE, {
-    onCompleted: data => {
-      window.location.reload(false);
-    }
-  });
+  const handleSubmit = e => {
+    e.preventDefault();
+    props.handleAddNote(YearIndex, MonthIndex + 1, DateIndex, input.toString());
+    setInput("");
+    console.log("clicked");
+    document.getElementById("edit-form").reset();
+  };
+
   return (
     <div>
-      <form
-        onSubmit={e => {
-          e.preventDefault();
-        }}
-      >
+      <form id="edit-form" onSubmit={e => handleSubmit(e)}>
         <Box
           display="flex"
           justifyContent="flex-end"
           marginRight={1}
           onClick={() => CalenderToggle()}
+          color="primary-dark"
         >
-          <Typography color="primary-dark" variant="body2">
+          <Typography color="inherit" variant="body2">
             {MonthSheet[MonthIndex] + " " + DateIndex + ", " + YearIndex}
           </Typography>
         </Box>
@@ -85,30 +72,16 @@ const Edit = props => {
             required
             fullWidth
             label="Add Note here.."
-            onChange={e => setInput(e.target.value)}
-          />
-          <Button
-            variant="contained"
-            color="primary"
-            onClick={() => {
-              // addTodo({
-              //   variables: {
-              //     year: YearIndex,
-              //     month: MonthIndex + 1,
-              //     date: DateIndex,
-              //     text: input.toString()
-              //   }
-              // });
-              props.handleAddNote(
-                YearIndex,
-                MonthIndex + 1,
-                DateIndex,
-                input.toString()
-              );
-              setInput("");
-              console.log("clicked");
+            onChange={e => {
+              setInput(e.target.value);
             }}
-          >
+            onKeyPress={e => {
+              if (e.key === "Enter") {
+                handleSubmit();
+              }
+            }}
+          />
+          <Button variant="contained" color="primary" type="submit">
             +
           </Button>
         </Box>

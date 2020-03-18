@@ -8,7 +8,7 @@ const useStyles = makeStyles(theme => ({}));
 const Note = props => {
   const classes = useStyles();
   return (
-    <div>
+    <div className={classes.root}>
       <Box paddingBottom={0.5}>
         <Box color="#696969" marginLeft={0.5}>
           <Typography variant="caption">

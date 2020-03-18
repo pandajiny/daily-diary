@@ -1,14 +1,17 @@
 import React, { useState } from "react";
 
-import { useQuery } from "@apollo/react-hooks";
+// Import Graphql Package
+import { useQuery, useMutation } from "@apollo/react-hooks";
 import { gql } from "apollo-boost";
 
-import { makeStyles } from "@material-ui/core/styles";
-import { Typography, Grid, Box } from "@material-ui/core";
+// Import Material UI
+import { Box } from "@material-ui/core";
 
+// Import Components
 import Edit from "./Edit";
 import Note from "./Note";
 
+// Define GRAPHQL QUERY AND MUTATION
 const GET_NOTES = gql`
   {
     getNotes {
@@ -19,29 +22,35 @@ const GET_NOTES = gql`
     }
   }
 `;
-
-const useStyles = makeStyles(theme => ({
-  root: { flexGrow: 1 }
-}));
+const ADD_NOTE = gql`
+  mutation AddNote($year: Int, $month: Int, $date: Int, $text: String) {
+    addNote(year: $year, month: $month, date: $date, text: $text) {
+      year
+      month
+      date
+      text
+    }
+  }
+`;
 
 const Notes = () => {
-  // Using material UI
-  const classes = useStyles();
   // Using Graphql Apollo Queries
   const { loading, error, data } = useQuery(GET_NOTES);
-
-  const [notesList, setNotesList] = useState([]);
-
-  // merge two arrays from Client, Server
-  const mergeArray = newDataArray => {
-    console.log(`mergeArray is called, ${newDataArray[0]}`);
-    let newNotesList = [];
-    if (newDataArray) {
-      newNotesList = notesList;
-      newNotesList.concat(newDataArray);
+  const [addNote] = useMutation(ADD_NOTE, {
+    onCompoleted: data => {
+      console.log(data);
     }
-    setNotesList(newNotesList);
-  };
+  });
+
+  // Using React-hooks State
+  const [notesList, setNotesList] = useState([]);
+  const [dataLoaded, setDataLoaded] = useState(false);
+
+  if (data && !dataLoaded) {
+    // console.log(`data loaded: ${data.getNotes[0].text}`);
+    setDataLoaded(true);
+    setNotesList(prevArray => prevArray.concat(data.getNotes));
+  }
 
   const handleAddNote = (year, month, date, text) => {
     const NewNote = {
@@ -51,18 +60,9 @@ const Notes = () => {
       text: text
     };
     setNotesList(oldArray => [...oldArray, NewNote]);
+    addNote({ variables: { ...NewNote } });
     console.log(notesList);
   };
-  //   {
-  //     "year": 2020,
-  //     "month": 3,
-  //     "date": 15,
-  //     "text": "Hi Haesun, It's from JINY."
-  //   },
-
-  if (data) {
-    mergeArray(data.getNotes);
-  }
 
   return (
     <div>
@@ -70,21 +70,23 @@ const Notes = () => {
         <Edit handleAddNote={handleAddNote} />
         {loading && <div>now on loading the notes...</div>}
         {error && <div>Error Occured.</div>}
-        <Box marginTop={3}>
-          {notesList.map((currentNote, index) => {
-            console.log(`hello it's notes from Notes`);
-            return (
-              <Note
-                key={index}
-                year={currentNote.year}
-                month={currentNote.month}
-                date={currentNote.date}
-              >
-                {currentNote.text}
-              </Note>
-            );
-          })}
-        </Box>
+        {data && (
+          <Box marginTop={3}>
+            {notesList.map((currentNote, index) => {
+              console.log(`hello it's notes from Notes`);
+              return (
+                <Note
+                  key={index}
+                  year={currentNote.year}
+                  month={currentNote.month}
+                  date={currentNote.date}
+                >
+                  {currentNote.text}
+                </Note>
+              );
+            })}
+          </Box>
+        )}
       </Box>
     </div>
   );
