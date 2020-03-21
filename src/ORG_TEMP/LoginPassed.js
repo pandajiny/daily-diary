@@ -1,16 +1,10 @@
 import React from "react";
-import {
-  Box,
-  Typography,
-  Paper,
-  CssBaseline,
-  Container
-} from "@material-ui/core";
+import { Box, Typography, CssBaseline, Container } from "@material-ui/core";
 import Avatar from "@material-ui/core/Avatar";
 import { makeStyles } from "@material-ui/core/styles";
 import CheckIcon from "@material-ui/icons/Check";
-import { green, pink, blue } from "@material-ui/core/colors";
-import { useHistory } from "react-router-dom";
+import { blue } from "@material-ui/core/colors";
+import { useHistory, useLocation, Redirect } from "react-router-dom";
 
 const useStyle = makeStyles(theme => ({
   paper: {
@@ -53,8 +47,10 @@ const useStyle = makeStyles(theme => ({
 }));
 
 const LoginPassed = props => {
-  let history = useHistory();
   const classes = useStyle();
+
+  let history = useHistory();
+
   return (
     <Container maxWidth="sm">
       <CssBaseline />

@@ -2,36 +2,14 @@ import React, { useState } from "react";
 
 // Import Graphql Package
 import { useQuery, useMutation } from "@apollo/react-hooks";
-import { gql } from "apollo-boost";
+import { GET_NOTES, ADD_NOTE } from "../gql";
 
 // Import Material UI
 import { Box } from "@material-ui/core";
 
 // Import Components
-import Edit from "./Edit";
-import Note from "./Note";
-
-// Define GRAPHQL QUERY AND MUTATION
-const GET_NOTES = gql`
-  {
-    getNotes {
-      year
-      month
-      date
-      text
-    }
-  }
-`;
-const ADD_NOTE = gql`
-  mutation AddNote($year: Int, $month: Int, $date: Int, $text: String) {
-    addNote(year: $year, month: $month, date: $date, text: $text) {
-      year
-      month
-      date
-      text
-    }
-  }
-`;
+import Edit from "../components/Notes/Edit";
+import Note from "../components/Notes/Note";
 
 const Notes = () => {
   // Using Graphql Apollo Queries

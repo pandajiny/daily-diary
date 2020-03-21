@@ -2,7 +2,7 @@ import express from "express";
 import { ApolloServer, gql } from "apollo-server-express";
 import { MongoClient } from "mongodb";
 import fs from "fs";
-import notes from "./db/data.json";
+import notes from "./db/notes.json";
 import login from "./db/login.json";
 import { url } from "inspector";
 
@@ -63,7 +63,7 @@ const resolvers = {
       console.log(`server, addNote is called with ${text}`);
       const newNote = [{ year, month, date, text }];
       let notesData = JSON.stringify(notes.concat(newNote));
-      fs.writeFileSync("server/db/data.json", notesData);
+      fs.writeFileSync("server/db/notes.json", notesData);
       console.log("done!");
       return { year, month, date, text };
     },

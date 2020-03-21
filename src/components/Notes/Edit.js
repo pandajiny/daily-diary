@@ -1,8 +1,8 @@
-import React, { useState, useRef, useEffect } from "react";
+import React, { useState } from "react";
 
-import Calender from "../calender";
+import Calender from "../Calendar";
 
-import MonthSheet from "../data/MonthSheet.json";
+import MonthSheet from "../../data/MonthSheet.json";
 import {
   // Container,
   TextField,
@@ -11,6 +11,7 @@ import {
   // Avatar,
   Button
 } from "@material-ui/core";
+import Note from "./Note";
 
 let DateMethod = new Date();
 
@@ -72,6 +73,8 @@ const Edit = props => {
         <Box display="flex" flexDirection="row">
           <TextField
             id="text"
+            value={input}
+            type="text"
             placeholder="Add Note here.."
             multiline
             required
@@ -84,7 +87,9 @@ const Edit = props => {
               }
             }}
             onChange={e => {
-              setInput(e.target.value);
+              if (e.key !== "enter") {
+                setInput(e.target.value);
+              }
             }}
           />
           <Button variant="contained" color="primary" type="submit">

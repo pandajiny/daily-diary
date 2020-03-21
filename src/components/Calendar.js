@@ -4,9 +4,9 @@ import { makeStyles } from "@material-ui/core/styles";
 import Grid from "@material-ui/core/Grid";
 import Button from "@material-ui/core/Button";
 
-import MonthSheet from "./data/MonthSheet.json";
-import LastDaySheet from "./data/LastDaySheet.json";
-import DaySheet from "./data/DaySheet.json";
+import MonthSheet from "../data/MonthSheet.json";
+import LastDaySheet from "../data/LastDaySheet.json";
+import DaySheet from "../data/DaySheet.json";
 
 // Getting Date Method
 let DateMethod = new Date();
@@ -23,7 +23,7 @@ const useStyles = makeStyles(theme => ({
   }
 }));
 // console.log(`AfterTrim ${Day_FirstDate}`);
-const Calender = props => {
+const Calendar = props => {
   // Meterial UI
   const classes = useStyles();
 
@@ -116,14 +116,14 @@ const Calender = props => {
         <Grid item xs={5}></Grid>
         {WeekNumber.map((Week, WeekIndex) => {
           return (
-            <Fragment>
+            <Fragment key={WeekIndex}>
               {DaySheet.map((date, index) => {
                 const DateIndex = currentDate;
                 return (
                   <Grid
+                    key={index}
                     item
                     xs={1}
-                    key={index}
                     onClick={() => console.log(`box clicked, ${index}`)}
                   >
                     <Button
@@ -150,4 +150,4 @@ const Calender = props => {
   );
 };
 
-export default Calender;
+export default Calendar;
