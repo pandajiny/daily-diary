@@ -1,91 +1,23 @@
-import express from "express";
-import { ApolloServer, gql } from "apollo-server-express";
-import { MongoClient } from "mongodb";
-import fs from "fs";
-import notes from "./db/notes.json";
-import login from "./db/login.json";
-import { url } from "inspector";
+import { typeDefs } from "./schema";
+import { resolvers } from "./resolvers";
 
-const PORT = 4000;
+const { ApolloServer } = require("apollo-server");
+const MongoClient = require("mongodb").MongoClient;
 
-const app = express();
-
-const dburl = "mongodb://localhost:27017";
-const dbclient = new MongoClient(dburl, {
+const url = "mongodb://localhost:27017";
+const client = new MongoClient(url, {
   useNewUrlParser: true,
   useUnifiedTopology: true
 });
 
-dbclient.connect(err => {
-  console.log(`MONGOdb connected with ${url}`);
-  const db = dbclient.db("users");
+client.connect(function(err) {
+  console.log("MONGOdb connected");
+});
+export const db = client.db("daily-diary"); //mongodb database name
+
+const server = new ApolloServer({
+  typeDefs,
+  resolvers
 });
 
-const typeDefs = gql`
-  type Query {
-    hello: String!
-    getNotes: [Note]
-  }
-
-  type Mutation {
-    addNote(year: Int, month: Int, date: Int, text: String): Note
-    hello(email: String): String
-    signup(email: String, password: String, name: String): signupResult
-    login(email: String, password: String): loginResult
-  }
-
-  type Note {
-    year: Int
-    month: Int
-    date: Int
-    text: String
-  }
-
-  type signupResult {
-    passed: Boolean
-  }
-
-  type loginResult {
-    passed: Boolean
-  }
-`;
-
-const resolvers = {
-  Query: {
-    hello: () => "World",
-    getNotes: () => {
-      console.log(`server, getNotes is Called`);
-      return notes;
-    }
-  },
-  Mutation: {
-    addNote: (_, { year, month, date, text }, __) => {
-      console.log(`server, addNote is called with ${text}`);
-      const newNote = [{ year, month, date, text }];
-      let notesData = JSON.stringify(notes.concat(newNote));
-      fs.writeFileSync("server/db/notes.json", notesData);
-      console.log("done!");
-      return { year, month, date, text };
-    },
-    signup: (_, { email, password, name }) => {
-      console.log(`signup!${email + password}`);
-      const token = email.concat(" ", password, " ", name);
-      const UserInformation = JSON.stringify({ email, password, name });
-      fs.writeFileSync("server/db/login.json", UserInformation);
-      return { passed: true };
-    },
-    login: (_, { email, password }) => {
-      console.log(`login! ${email}, ${password}`);
-      if (email === login.email && password === login.password)
-        return { passed: true };
-      else return { passed: false };
-    }
-  }
-};
-
-const server = new ApolloServer({ typeDefs, resolvers });
-server.applyMiddleware({ app });
-
-app.listen({ port: PORT }, () =>
-  console.log(`🚀 Server ready at http://localhost:4000${server.graphqlPath}`)
-);
+server.listen(4000).then(({ url }) => console.log(`Server running at ${url} `));
