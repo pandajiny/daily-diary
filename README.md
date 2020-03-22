@@ -1,13 +1,49 @@
-Daily-Diary Project
+Daily-Diary
 
-# Personal Diary on Internet Network
+# Feature
 
-Display Calender
+<!-- 1. Function -  Calendar, Schedule, todolist, Personal Diary Mnagement
+2. Account - SignUp, Login, Updating Profile, Delete Account, Adding friends
+ -->
 
-# Feb 26, 2020
+1. Notes
+   Personal Daily-Diary.
 
-Start Project, and Defining feature
+Note Object
 
-# Feb 27, 2020
+> > Time(Year, Month, Date, Hour, Minute)
+> > Content(Text,Important, Kind(like note, or Idea, Schedule, Todo, or etc..))
+> > Private Information(User(Name, Email), Mood)
 
-Make Server Side folder and let the port turn on.
+2. Schedule
+   Schedule Managing Application for both platform Mobile App and also Web.
+
+3. Account Manage
+   User Login Feature
+
+User Object
+
+> > Essencial Information
+
+- Name, *Email, Password, *PhoneNumber
+
+> > Optional Information
+
+- Profile Image, School, Job, Etc...
+
+- `*` mark is must be non-overlapping Information between each other Users.
+
+Function
+
+> > Sign Up
+
+- Require Essential user Information
+- After Sign Up, App ask to user for Addtional Profile Information
+
+> > Login
+
+- Login with email Address, Password
+
+> > loginResult
+
+- Part of User Information, Login Passed, Login Time
