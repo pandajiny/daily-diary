@@ -1,11 +1,13 @@
 import React from "react";
-import { Box, Typography } from "@material-ui/core";
-import { Link } from "react-router-dom";
+import { Box, Typography, Link } from "@material-ui/core";
+import { useHistory } from "react-router-dom";
 
 import useStyles from "../styles";
 
 const Navigater = () => {
   const classes = useStyles();
+
+  const history = useHistory();
 
   return (
     <div className="Navigater">
@@ -25,11 +27,29 @@ const Navigater = () => {
           </Typography>
         </Box>
         <hr />
-        <Link to={"/notes"} variant="h5">
-          Notes
-        </Link>
-        <Link to={"/account"} variant="h5">
+        <Link
+          onClick={() => {
+            history.push("/account");
+          }}
+          variant="subtitle1"
+        >
           Account
+        </Link>
+        <Link
+          onClick={() => {
+            history.push("/calendar");
+          }}
+          variant="subtitle1"
+        >
+          Calendar
+        </Link>
+        <Link
+          onClick={() => {
+            history.push("/notes");
+          }}
+          variant="subtitle1"
+        >
+          Notes
         </Link>
       </Box>
     </div>

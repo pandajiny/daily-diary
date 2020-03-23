@@ -19,6 +19,7 @@ import LockOutlinedIcon from "@material-ui/icons/LockOutlined";
 const LoginEmail = props => {
   const classes = useStyles();
 
+  console.log("login Email");
   let history = useHistory();
 
   const [email, setEmail] = useState("");

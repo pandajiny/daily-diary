@@ -4,9 +4,9 @@ import { makeStyles } from "@material-ui/core/styles";
 import Grid from "@material-ui/core/Grid";
 import Button from "@material-ui/core/Button";
 
-import MonthSheet from "../data/MonthSheet.json";
-import LastDaySheet from "../data/LastDaySheet.json";
-import DaySheet from "../data/DaySheet.json";
+import MonthSheet from "../../data/MonthSheet.json";
+import LastDaySheet from "../../data/LastDaySheet.json";
+import DaySheet from "../../data/DaySheet.json";
 
 // Getting Date Method
 let DateMethod = new Date();

@@ -1,17 +1,33 @@
 import React from "react";
-import { Box, Typography, Container } from "@material-ui/core";
+import { Box, Typography, Container, Link } from "@material-ui/core";
+import { useHistory } from "react-router-dom";
 
 function Header() {
+  let history = useHistory();
   return (
     <div className="header">
       <Container maxWidth="md">
         <Box display="flex" justifyContent="flex-end">
-          {localStorage.getItem("loginState") === "true" ? (
+          {localStorage.getItem("isLoggedIn") === "true" ? (
             <Box>
-              <Typography>{"userData@gmail.com / logout"} </Typography>
+              <Typography>{localStorage.getItem("loggedInId")}</Typography>
+              <Link
+                onClick={() => {
+                  localStorage.setItem(`isLoggedIn`, false);
+                  localStorage.setItem("loggedInId", "");
+                  window.location.reload();
+                }}
+              >
+                Log Out
+              </Link>
             </Box>
           ) : (
-            <Box>Sign Up? / Sign In?</Box>
+            <Box>
+              <Link onClick={() => history.push("/account/login/email")}>
+                Sign In?
+              </Link>
+              <Link>Sign Up?</Link>
+            </Box>
           )}
         </Box>
       </Container>

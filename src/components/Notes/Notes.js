@@ -2,14 +2,14 @@ import React, { useState } from "react";
 
 // Import Graphql Package
 import { useQuery, useMutation } from "@apollo/react-hooks";
-import { GET_NOTES, ADD_NOTE } from "../gql";
+import { GET_NOTES, ADD_NOTE } from "../../gql";
 
 // Import Material UI
 import { Box } from "@material-ui/core";
 
 // Import Components
-import Edit from "../components/Notes/Edit";
-import Note from "../components/Notes/Note";
+import Edit from "./Edit";
+import Note from "./Note";
 
 const Notes = () => {
   // Using Graphql Apollo Queries

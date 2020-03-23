@@ -6,6 +6,7 @@ import LoginPassword from "../components/Account/LoginPassword";
 import LoginResult from "../components/Account/LoginResult";
 
 const Login = () => {
+  console.log("account-login");
   const checkLoginState = () => {
     return localStorage.getItem("loginState") === "true";
   };
@@ -13,16 +14,7 @@ const Login = () => {
   return (
     <div className="account_login">
       <Switch>
-        <Route
-          path="/account/login/email"
-          render={() =>
-            checkLoginState() ? (
-              <Redirect to="/account/login/result" />
-            ) : (
-              <LoginEmail />
-            )
-          }
-        />
+        <Route path="/account/login/email" render={() => <LoginEmail />} />
         <Route
           path="/account/login/password"
           render={() => <LoginPassword />}

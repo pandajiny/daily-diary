@@ -68,11 +68,11 @@ const LoginPassword = () => {
               label="PassWord"
               type="password"
               value={password}
-              // onKeyDown={e => {
-              //   if (e.key.toString() === "Enter") {
-              //     props.tryLogin();
-              //   }
-              // }}
+              onKeyDown={e => {
+                if (e.key.toString() === "Enter") {
+                  handleSubmit();
+                }
+              }}
               onChange={e => setPassword(e.target.value)}
               autoFocus
             />

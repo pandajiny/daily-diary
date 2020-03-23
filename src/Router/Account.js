@@ -6,10 +6,12 @@ import AccountHome from "../components/Account/AccountHome";
 import Error from "./Error";
 
 const Account = () => {
+  console.log("account");
+
   return (
     <div className="account">
       <Switch>
-        <Route path="/account/" render={() => <AccountHome />} />
+        <Route exact path="/account/" render={() => <AccountHome />} />
         <Route path="/account/login" render={() => <Login />} />
         <Route path="/account/signup" render={() => <div>Sign up!</div>} />
         <Route
