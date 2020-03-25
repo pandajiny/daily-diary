@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { useLocation, useHistory } from "react-router-dom";
+import { useLocation, useHistory, Redirect } from "react-router-dom";
 
 import { useMutation } from "react-apollo";
 
@@ -18,29 +18,44 @@ import useStyles from "../../styles";
 const LoginResult = () => {
   const classes = useStyles();
 
-  let history = useHistory();
   const location = useLocation();
+  let history = useHistory();
+  // const email,
 
-  const { email, password } = location.state;
+  const [email, setEmail] = useState(
+    location.state.email || localStorage.getItem("loggedInId")
+  );
+
+  const [password, setPassword] = useState(location.state.password || null);
+
   const [isLoading, setIsloading] = useState(true);
 
   const [loginMutation] = useMutation(LOGIN_MUTATION, {
     onCompleted: data => {
+      console.log(`mutation onCompleted`);
+      console.log(data);
       setIsloading(false);
-      localStorage.setItem("isLoggedIn", data.logIn.passed.toString());
-      localStorage.setItem("loggedInId", data.logIn.user.email);
+      console.log("replace the location.state");
+      if (data.logIn.passed) {
+        localStorage.setItem("isLoggedIn", data.logIn.passed.toString());
+        localStorage.setItem("loggedInId", data.logIn.user.email);
+        history.replace({ state: {} });
+      } else {
+        console.log("login result : false");
+        history.push("/account/login/email");
+      }
     }
   });
-
   useEffect(() => {
+    console.log(`use Effected Triggerd!`);
+    console.log(email);
+    console.log(password);
     loginMutation({ variables: { email, password } });
   }, [email, loginMutation, password]);
 
   if (isLoading) {
     return <div>Please Wait</div>;
   } else {
-    // return <div>LoginResult: {loginState ? "login Passed" : "login Failed"}</div>;
-
     return (
       <div className="account_login_result">
         <Container maxWidth="sm">
@@ -55,9 +70,9 @@ const LoginResult = () => {
               </Typography>
               <Box className={classes.userProfile} marginTop={3}>
                 <Avatar className={classes.smallAvatar}>
-                  {location.state.email.slice(0, 1)}
+                  {email.slice(0, 1)}
                 </Avatar>
-                <Typography variant="body1">{location.state.email} </Typography>
+                <Typography variant="body1">{email} </Typography>
               </Box>
             </Box>
             <Box width="100%" alignItems="left" paddingLeft={3}>
@@ -79,7 +94,15 @@ const LoginResult = () => {
               </Box>
             </Box>
             <Box width="100%" marginTop={5} paddingRight={3} textAlign="right">
-              <Link color="primary" variant="body1">
+              <Link
+                onClick={() => {
+                  localStorage.setItem("isLoggedIn", "false");
+                  localStorage.setItem("loggedInId", "");
+                  history.push("/account/login/email");
+                }}
+                color="primary"
+                variant="body1"
+              >
                 {"Log Out"}
               </Link>
             </Box>

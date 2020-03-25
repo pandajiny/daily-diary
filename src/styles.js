@@ -36,6 +36,9 @@ const useStyles = makeStyles(theme => ({
     width: theme.spacing(3),
     height: theme.spacing(3),
     margin: theme.spacing(1)
+  },
+  dateButton: {
+    minWidth: "10px"
   }
 }));
 

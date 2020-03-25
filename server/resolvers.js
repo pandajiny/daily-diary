@@ -84,14 +84,23 @@ export const resolvers = {
         .findOne(query)
         .then(result => result);
       console.log(result);
-      const loginUser = { name: result.name, email: result.email };
       let requestTime = getCurrentTime();
-      console.log(requestTime);
-      return {
-        passed: result.email === email,
-        user: loginUser,
-        time: requestTime
-      };
+      if (result) {
+        console.log(`login passed`);
+        const loginUser = { name: result.name, email: result.email };
+        return {
+          passed: result.email === email,
+          user: loginUser,
+          time: requestTime
+        };
+      } else {
+        console.log("login Failed");
+        return {
+          passed: false,
+          user: { name: "", email: "" },
+          time: requestTime
+        };
+      }
     }
   }
 };
