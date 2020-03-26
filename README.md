@@ -12,8 +12,8 @@ Daily-Diary
 Note Object
 
 > > Time(Year, Month, Date, Hour, Minute)
-> > Content(Text,Important, Kind(like note, or Idea, Schedule, Todo, or etc..))
-> > Private Information(User(Name, Email), Mood)
+> > Content(Text, Important, Kind(Schedule, Todo, or etc..))
+> > User(email)
 
 2. Schedule
    Schedule Managing Application for both platform Mobile App and also Web.

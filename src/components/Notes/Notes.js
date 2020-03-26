@@ -2,7 +2,7 @@ import React, { useState } from "react";
 
 // Import Graphql Package
 import { useQuery, useMutation } from "@apollo/react-hooks";
-import { GET_NOTES, ADD_NOTE } from "../../gql";
+import { GET_MONTH_NOTES, ADD_NOTE } from "../../gql";
 
 // Import Material UI
 import { Box } from "@material-ui/core";
@@ -13,7 +13,7 @@ import Note from "./Note";
 
 const Notes = () => {
   // Using Graphql Apollo Queries
-  const { loading, error, data } = useQuery(GET_NOTES);
+  const { loading, error, data } = useQuery(GET_MONTH_NOTES);
   const [addNote] = useMutation(ADD_NOTE, {
     onCompoleted: data => {
       console.log(data);

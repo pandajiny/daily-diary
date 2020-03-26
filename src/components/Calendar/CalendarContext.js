@@ -29,7 +29,10 @@ function DateReducer(state, action) {
         return { ...state, month: state.month - 1 };
       }
     case "SELECT_DATE":
-      return { ...state, date: action.date };
+      return {
+        ...state,
+        select: { year: state.year, month: state.month, date: action.date }
+      };
     default:
       throw new Error("unhandled action");
   }
@@ -43,7 +46,11 @@ export function DateContextProvider({ children }) {
   const initialDate = {
     year: Today.getFullYear(),
     month: Today.getMonth(),
-    date: Today.getDate()
+    select: {
+      year: Today.getFullYear(),
+      month: Today.getMonth(),
+      date: Today.getDate()
+    }
   };
   const [date, dispatch] = useReducer(DateReducer, initialDate);
   return (
@@ -64,5 +71,48 @@ export function useDateContext() {
 export function useDateDispatch() {
   const dispatch = useContext(DateDispatchContext);
   if (!dispatch) throw new Error("DateProvider not found");
+  return dispatch;
+}
+
+// Notes State Context
+
+const NotesDispatchContext = createContext(undefined);
+const NotesStateContext = createContext(undefined);
+
+const NotesReducer = (state, action) => {
+  switch (action.type) {
+    case "GET_NOTES":
+      return state;
+    case "CREATE_NOTE":
+      console.log(state);
+      return state.concat(action.note);
+    default:
+      throw new Error("unhandled action type");
+  }
+};
+
+export function NotesContextProvider({ children }) {
+  // Note has, date information, who write from, content
+  const initialNotes = [];
+
+  const [notes, dispatch] = useReducer(NotesReducer, initialNotes);
+  return (
+    <NotesDispatchContext.Provider value={dispatch}>
+      <NotesStateContext.Provider value={notes}>
+        {children}
+      </NotesStateContext.Provider>
+    </NotesDispatchContext.Provider>
+  );
+}
+
+export function useNotesContext() {
+  const state = useContext(NotesStateContext);
+  if (!state) throw new Error("Notes Provider not found");
+  return state;
+}
+
+export function useNotesDispatch() {
+  const dispatch = useContext(NotesDispatchContext);
+  if (!dispatch) throw new Error("Notes Provider not found");
   return dispatch;
 }

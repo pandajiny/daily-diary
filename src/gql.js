@@ -11,13 +11,20 @@ export const LOGIN_MUTATION = gql`
   }
 `;
 
-export const GET_NOTES = gql`
-  {
-    getNotes {
-      year
-      month
-      date
-      text
+export const GET_MONTH_NOTES = gql`
+  query GetMonthNotes($email: String, $year: Int, $month: Int) {
+    getMonthNotes(email: $email, year: $year, month: $month) {
+      time {
+        year
+        month
+        date
+      }
+      content {
+        text
+      }
+      user {
+        email
+      }
     }
   }
 `;
@@ -28,6 +35,29 @@ export const ADD_NOTE = gql`
       month
       date
       text
+    }
+  }
+`;
+
+export const ADD_SCHEDULE = gql`
+  mutation AddSchedule(
+    $text: String
+    $email: String
+    $year: Int
+    $month: Int
+    $date: Int
+  ) {
+    addSchedule(
+      text: $text
+      email: $email
+      year: $year
+      month: $month
+      date: $date
+    ) {
+      passed
+      user {
+        email
+      }
     }
   }
 `;

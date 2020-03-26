@@ -76,11 +76,9 @@ const Edit = props => {
             value={input}
             type="text"
             placeholder="Add Note here.."
-            multiline
             required
             fullWidth
             label="Add Note here.."
-            defaultValue=""
             onKeyPress={e => {
               if (e.key === "Enter") {
                 handleSubmit();

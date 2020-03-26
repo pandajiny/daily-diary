@@ -3,24 +3,32 @@ import gql from "graphql-tag";
 export const typeDefs = gql`
   type Query {
     hello: String!
-    getNotes(email: String): [Note]
+    getMonthNotes(email: String, year: Int, month: Int): [Note]
   }
 
   type Mutation {
     addNote(email: String, text: String, isImportant: Boolean): AddNoteResult
+    addSchedule(
+      email: String
+      text: String
+      year: Int
+      month: Int
+      date: Int
+    ): AddScheduleResult
     signUp(name: String, email: String, password: String): SignUpResult
     logIn(email: String, password: String): LogInResult
   }
 
   type Note {
     _id: String
+    requestTime: Time
     time: Time
     content: NoteContent
     user: User
   }
 
   type Time {
-    year: String
+    year: Int
     month: Int
     date: Int
     hour: Int
@@ -60,5 +68,10 @@ export const typeDefs = gql`
     passed: Boolean
     user: User
     time: Time
+  }
+
+  type AddScheduleResult {
+    passed: Boolean
+    user: User
   }
 `;

@@ -29,7 +29,14 @@ function DateDisplay() {
                   (dayIndex === getFirstDay() || DateCount > 1) &&
                   DateCount <= LastDateArray[state.month]
                 ) {
-                  return <DateButton date={DateCount++} day={day}></DateButton>;
+                  return (
+                    <DateButton
+                      month={state.month}
+                      year={state.year}
+                      date={DateCount++}
+                      day={day}
+                    ></DateButton>
+                  );
                 } else {
                   return <DateButton />;
                 }
@@ -42,14 +49,42 @@ function DateDisplay() {
   );
 }
 
-const DateButton = ({ date, selectDate, day }) => {
+const DateButton = ({ year, month, date, day }) => {
   const classes = useStyles();
 
+  const state = useDateContext();
   const dispatch = useDateDispatch();
 
+  const currentDate = {
+    year,
+    month,
+    date
+  };
   const handleClick = () => {
+    console.log(state.select);
+    console.log(currentDate);
+    console.log(currentDate === state.select);
     dispatch({ type: "SELECT_DATE", date: date });
   };
+
+  const selected = () => {
+    if (
+      currentDate.month === state.select.month &&
+      currentDate.year === state.select.year &&
+      currentDate.date === state.select.date
+    ) {
+      return true;
+    }
+    return false;
+  };
+
+  if (selected()) {
+    return (
+      <Button className={classes.dateButton} fullWidth disabled>
+        {date}
+      </Button>
+    );
+  }
 
   if (date === undefined) {
     return (

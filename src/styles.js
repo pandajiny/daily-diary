@@ -38,7 +38,7 @@ const useStyles = makeStyles(theme => ({
     margin: theme.spacing(1)
   },
   dateButton: {
-    minWidth: "10px"
+    minWidth: "0px"
   }
 }));
 

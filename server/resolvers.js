@@ -14,24 +14,55 @@ const getCurrentTime = () => {
 export const resolvers = {
   Query: {
     hello: () => "World",
-    getNotes: async (_, { email }, __) => {
-      console.log(`server, getNotes is called with ${email}`);
+    getMonthNotes: async (_, { email, year, month }, ___) => {
+      console.log(`server, getMonthNote is called with ${email}`);
+      const requestTIme = getCurrentTime();
       const query = {
-        "user.email": "astic1764@gmail.com"
+        "time.year": year,
+        "time.month": month,
+        "user.email": email
       };
       const request = await db
         .collection("notes")
         .find(query)
-        .toArray()
-        .then(result => result);
+        .toArray();
+      if (!request) throw new Error("db can`t connected");
 
-      console.log(request);
       const result = request;
       return result;
     }
   },
   Mutation: {
     // Notes Function
+
+    addSchedule: async (_, { email, text, year, month, date }, ___) => {
+      console.log(`server, addSchedule is called with ${email}`);
+      const requestTime = getCurrentTime();
+      const newSchedule = {
+        requestTime: requestTime,
+        time: { year: year, month: month, date: date },
+        content: {
+          text: text,
+          isImportant: false,
+          kind: "not defined"
+        },
+        user: {
+          email: email
+        }
+      };
+      const request = await db
+        .collection("notes")
+        .insertOne(newSchedule)
+        .then(result => result);
+
+      const result = {
+        passed: request.result.ok === 1,
+        user: {
+          email: request.ops[0].user.email
+        }
+      };
+      return result;
+    },
     addNote: async (_, { email, text, isImportant }, ___) => {
       console.log(`server, addNote is called with ${email}`);
       const requestTime = getCurrentTime();

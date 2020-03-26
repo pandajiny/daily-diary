@@ -6,7 +6,8 @@ import {
   Button,
   Grid,
   ButtonGroup,
-  Link
+  Link,
+  Fab
 } from "@material-ui/core";
 import useStyles from "../../styles";
 
@@ -26,14 +27,18 @@ function CalendarWidget() {
   return (
     <div>
       <Box className={classes.rowBox} alignItems="center">
-        <Typography>
-          {MonthSheet[state.month] +
-            " " +
-            (state.year === Today.getFullYear() ? "" : state.year)}
-        </Typography>
+        <Box flexGrow="1">
+          <Typography variant="body1">
+            {MonthSheet[state.month] + ", " + state.year}
+          </Typography>
+        </Box>
         <Box>
-          <Button onClick={() => dispatch({ type: "DECREASE" })}>{"<"}</Button>
-          <Button onClick={() => dispatch({ type: "INCREASE" })}>{">"}</Button>
+          <Button size="small" onClick={() => dispatch({ type: "DECREASE" })}>
+            {"<"}
+          </Button>
+          <Button size="small" onClick={() => dispatch({ type: "INCREASE" })}>
+            {">"}
+          </Button>
         </Box>
       </Box>
       <Grid container>
@@ -46,12 +51,6 @@ function CalendarWidget() {
         ))}
       </Grid>
       <DateDisplay />
-
-      <p>{state.year}</p>
-
-      <p>{state.month}</p>
-
-      <p>{state.date}</p>
     </div>
   );
 }
