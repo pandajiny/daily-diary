@@ -1,19 +1,19 @@
 {
   "files": {
-    "main.js": "/daily-diary/static/js/main.a137525a.chunk.js",
-    "main.js.map": "/daily-diary/static/js/main.a137525a.chunk.js.map",
+    "main.js": "/daily-diary/static/js/main.a52bca7e.chunk.js",
+    "main.js.map": "/daily-diary/static/js/main.a52bca7e.chunk.js.map",
     "runtime-main.js": "/daily-diary/static/js/runtime-main.d94dc6b7.js",
     "runtime-main.js.map": "/daily-diary/static/js/runtime-main.d94dc6b7.js.map",
-    "static/js/2.c06ae152.chunk.js": "/daily-diary/static/js/2.c06ae152.chunk.js",
-    "static/js/2.c06ae152.chunk.js.map": "/daily-diary/static/js/2.c06ae152.chunk.js.map",
+    "static/js/2.8f4d665e.chunk.js": "/daily-diary/static/js/2.8f4d665e.chunk.js",
+    "static/js/2.8f4d665e.chunk.js.map": "/daily-diary/static/js/2.8f4d665e.chunk.js.map",
     "index.html": "/daily-diary/index.html",
-    "precache-manifest.d4e1bcf963527f2b27baafead04800a8.js": "/daily-diary/precache-manifest.d4e1bcf963527f2b27baafead04800a8.js",
+    "precache-manifest.1befc1c584dad9e545a94d8bdeab7728.js": "/daily-diary/precache-manifest.1befc1c584dad9e545a94d8bdeab7728.js",
     "service-worker.js": "/daily-diary/service-worker.js",
-    "static/js/2.c06ae152.chunk.js.LICENSE.txt": "/daily-diary/static/js/2.c06ae152.chunk.js.LICENSE.txt"
+    "static/js/2.8f4d665e.chunk.js.LICENSE.txt": "/daily-diary/static/js/2.8f4d665e.chunk.js.LICENSE.txt"
   },
   "entrypoints": [
     "static/js/runtime-main.d94dc6b7.js",
-    "static/js/2.c06ae152.chunk.js",
-    "static/js/main.a137525a.chunk.js"
+    "static/js/2.8f4d665e.chunk.js",
+    "static/js/main.a52bca7e.chunk.js"
   ]
 }
